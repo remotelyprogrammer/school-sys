@@ -1,21 +1,50 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contact, Student, Address
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from .forms import StudentForm, ContactFormSet, AddressForm, AddressFormSet
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 
+
+class StudentDeleteView(DeleteView):
+    model = Student
+    template_name = 'student/student-confirm-delete.html'
+    context_object_name = 'student'
+    success_url = reverse_lazy('student:student-list')  # Redirect to the student list after deletion
+
+    def get_queryset(self):
+        """ Optionally restricts the queryset to prevent deleting other user's data,
+            may be unnecessary depending on your use case. """
+        qs = super().get_queryset()
+        return qs.filter(status='active')  # Only include active students
+
+class StudentListView(ListView):
+    model = Student
+    template_name = 'student/student-list.html'
+    context_object_name = 'students'
 
 class StudentDetailView(DetailView):
     model = Student
     template_name = 'student/student-detail.html'
     context_object_name = 'student'
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # Add the student's contacts and address to the context
+    #     context['contacts'] = self.object.contacts.all()
+    #     context['address'] = self.object.address
+    #     return context
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add the student's contacts and address to the context
-        context['contacts'] = self.object.contacts.all()
-        context['address'] = self.object.address
+        context = super(StudentDetailView, self).get_context_data(**kwargs)
+        # Safely get the student's address if it exists, otherwise set it to None
+        try:
+            context['address'] = self.object.address
+        except Student.address.RelatedObjectDoesNotExist:
+            context['address'] = None
+
+        # Add the student's contacts to the context
+        context['contacts'] = self.object.contacts.all() if hasattr(self.object, 'contacts') else []
         return context
 
 class CreateStudentView(CreateView):

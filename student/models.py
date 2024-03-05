@@ -32,6 +32,13 @@ class Student(models.Model):
     telephone_number = models.CharField(max_length=20, blank=True)
     personal_email = models.EmailField()
 
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('inactive', 'Inactive'),
+    ]
+
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='active', help_text="Student's account status")
+
     def __str__(self):
         return f"{self.last_name}, {self.first_name} {self.middle_name}"
 
