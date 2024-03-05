@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-
+#yes
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'student/student-confirm-delete.html'
