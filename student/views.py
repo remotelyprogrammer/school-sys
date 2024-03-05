@@ -3,17 +3,20 @@ from .models import Contact, Student, Address
 from django.views.generic.edit import CreateView
 from .forms import StudentForm, ContactFormSet, AddressForm, AddressFormSet
 from django.urls import reverse_lazy
+from django.views.generic.detail import DetailView
 
 
-# class CreateStudentView(CreateView):
-#         model = Student
-#         form_class = StudentForm
-#         # fields = ['std_sch_id','first_name', 'middle_name','last_name','suffix','birth_date', 'nationality', 'civil_status','sex',
-#         #           'religion', 'mobile_number', 'telephone_number', 'personal_email'
-#         #           ]
-#         template_name = 'student/create-student.html'
-#         context_object_name = 'student'
-#         success_url = reverse_lazy('student:student-home')
+class StudentDetailView(DetailView):
+    model = Student
+    template_name = 'student/student-detail.html'
+    context_object_name = 'student'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add the student's contacts and address to the context
+        context['contacts'] = self.object.contacts.all()
+        context['address'] = self.object.address
+        return context
 
 class CreateStudentView(CreateView):
     model = Student
