@@ -1,0 +1,13 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>Are you sure you want to delete "{{ student }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>This action cannot be undone.</p>
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="{% url 'student:student-detail' student.pk %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
