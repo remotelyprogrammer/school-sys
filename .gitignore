@@ -3,3 +3,4 @@ student/__pycache__/urls.cpython-312.pyc
 student/__pycache__/views.cpython-312.pyc
 *.pyc
 *sqlite3
+db.sqlite3
