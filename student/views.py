@@ -6,18 +6,19 @@ from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-#test
+
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'student/student-confirm-delete.html'
-    context_object_name = 'student'
-    success_url = reverse_lazy('student:student-list')  # Redirect to the student list after deletion
+    success_url = reverse_lazy('student:student-list')
 
-    def get_queryset(self):
-        """ Optionally restricts the queryset to prevent deleting other user's data,
-            may be unnecessary depending on your use case. """
-        qs = super().get_queryset()
-        return qs.filter(status='active')  # Only include active students
+    def post(self, request, *args, **kwargs):
+        student = self.get_object()
+        if student.status == 'active':
+            # Return an error message and prevent deletion
+            return HttpResponseForbidden('This student cannot be deleted because they are still in active status.')
+        else:
+            return super(StudentDeleteView, self).post(request, *args, **kwargs)
 
 class StudentListView(ListView):
     model = Student
