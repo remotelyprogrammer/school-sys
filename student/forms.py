@@ -5,7 +5,7 @@ from .models import Student, Contact, Address
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['std_sch_id', 'first_name', 'middle_name', 'last_name', 'suffix', 'birth_date', 'nationality', 'civil_status', 'sex', 'religion', 'mobile_number', 'telephone_number', 'personal_email']
+        fields = ['middle_name', 'last_name', 'suffix', 'birth_date', 'nationality', 'civil_status', 'sex', 'religion', 'mobile_number', 'telephone_number', 'personal_email']
 
 
 class ContactForm(forms.ModelForm):

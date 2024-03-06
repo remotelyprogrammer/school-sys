@@ -9,40 +9,6 @@
 <div class="card mb-4">
     <div class="card-header">Contact Details</div>
     <div class="card-body">
-        <div class="row">
-            <div class="mb-3 col-3">
-                <label for="id_std_sch_id" class="form-label">Student School ID</label>
-                <input type="text" class="form-control" id="id_std_sch_id" name="std_sch_id" value="{{ form.std_sch_id.value|default_if_none:'' }}">
-                {{ form.std_sch_id.errors }}
-            </div>
-
-            <div class="mb-3 col-3">
-                <label for="id_birth_date" class="form-label">Birth Date</label>
-                <input type="date" class="form-control" id="id_birth_date" name="birth_date" value="{{ form.birth_date.value|date:'Y-m-d' }}">
-                {{ form.birth_date.errors }}
-            </div>
-
-            <div class="mb-3 col-3">
-                <label for="id_sex" class="form-label">Sex</label>
-                <select class="form-select" id="id_sex" name="sex">
-                    {% for value, text in form.fields.sex.choices %}
-                        <option value="{{ value }}" {% if form.sex.value == value %}selected{% endif %}>{{ text }}</option>
-                    {% endfor %}
-                </select>
-                {{ form.sex.errors }}
-            </div>
-
-            <div class="mb-3 col-3">
-                <label for="id_civil_status" class="form-label">Civil Status</label>
-                <select class="form-select" id="id_civil_status" name="civil_status">
-                    {% for value, text in form.fields.civil_status.choices %}
-                        <option value="{{ value }}" {% if form.civil_status.value == value %}selected{% endif %}>{{ text }}</option>
-                    {% endfor %}
-                </select>
-                {{ form.civil_status.errors }}
-                </div>
-
-        </div>
 
         <div class="row">
             <div class="mb-3 col-3">
@@ -69,6 +35,36 @@
                 {{ form.suffix.errors }}
             </div>
 
+
+        </div>
+
+        <div class="row">
+
+            <div class="mb-3 col-3">
+                <label for="id_birth_date" class="form-label">Birth Date</label>
+                <input type="date" class="form-control" id="id_birth_date" name="birth_date" value="{{ form.birth_date.value|date:'Y-m-d' }}">
+                {{ form.birth_date.errors }}
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_sex" class="form-label">Sex</label>
+                <select class="form-select" id="id_sex" name="sex">
+                    {% for value, text in form.fields.sex.choices %}
+                        <option value="{{ value }}" {% if form.sex.value == value %}selected{% endif %}>{{ text }}</option>
+                    {% endfor %}
+                </select>
+                {{ form.sex.errors }}
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_civil_status" class="form-label">Civil Status</label>
+                <select class="form-select" id="id_civil_status" name="civil_status">
+                    {% for value, text in form.fields.civil_status.choices %}
+                        <option value="{{ value }}" {% if form.civil_status.value == value %}selected{% endif %}>{{ text }}</option>
+                    {% endfor %}
+                </select>
+                {{ form.civil_status.errors }}
+                </div>
 
         </div>
 
