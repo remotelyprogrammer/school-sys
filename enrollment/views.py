@@ -9,8 +9,24 @@ class EnrollmentHomeView(TemplateView):
 	template_name = 'enrollment/enrollment-home.html'
 
 
-class CreateEnrollmentView(CreateView):
-	model = Enrollment
-	template_name = 'enrollment/create-enrollment.html'
-	form_class = EnrollmentForm
 
+
+
+from dal import autocomplete
+from student.models import Student
+
+class EnrollmentAutoComplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Student.objects.all()
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
+
+        print(qs)
+        return qs
+
+
+class CreateEnrollmentView(CreateView):
+    model = Enrollment
+    template_name = 'enrollment/create-enrollment.html'
+    form_class = EnrollmentForm

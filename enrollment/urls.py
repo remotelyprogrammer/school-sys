@@ -7,5 +7,6 @@ app_name = 'enrollment'
 urlpatterns = [
     path('', EnrollmentHomeView.as_view(), name='enrollment-home'),
     path('create/', views.CreateEnrollmentView.as_view(), name='enrollment-create'),
+    path('student-autocomplete/', views.EnrollmentAutoComplete.as_view(), name='student-autocomplete'),
 
 ]
