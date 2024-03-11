@@ -31,7 +31,7 @@
 
             <div class="mb-3 col-3">
                 <label for="id_suffix" class="form-label">Suffix</label>
-                <input type="text" class="form-control" id="id_suffix" name="last_name" value="{{ form.suffix.value|default_if_none:'' }}">
+                <input type="text" class="form-control" id="id_suffix" name="suffix" value="{{ form.suffix.value|default_if_none:'' }}">
                 {{ form.suffix.errors }}
             </div>
 
