@@ -6,6 +6,8 @@ from .forms import EnrollmentForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 
 
 class EnrollmentHomeView(TemplateView):
@@ -52,3 +54,21 @@ class CreateEnrollmentView(CreateView):
     def form_invalid(self, form):
         # If the form is invalid, return to the same page with error messages
         return self.render_to_response(self.get_context_data(form=form))
+
+
+class EnrollmentDetailView(DetailView):
+    model = Enrollment
+    template_name = 'enrollment/enrollee-detail.html'
+    context_object_name = 'enrollee'
+
+    def get_context_data(self, **kwargs):
+        context = super(EnrollmentDetailView, self).get_context_data(**kwargs)
+
+        # context['enrollment'] = self.object.enrollment.all() if hasattr(self.object, 'enrollments') else []
+        return context
+
+
+class EnrollmentListView(ListView):
+    model = Enrollment
+    template_name = 'enrollment/enrollment-list.html'
+    context_object_name = 'enrollees'

@@ -1,0 +1,9 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+
+<h2>Enrollee Details: {{ enrollee.student.first_name }} {{ enrollee.student.last_name }}</h2>
+
+{{ enrollee.student.middle_name }}
+
+{% endblock %}

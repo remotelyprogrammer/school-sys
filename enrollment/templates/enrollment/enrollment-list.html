@@ -1,0 +1,17 @@
+{% extends 'student/base.html'%}
+
+
+{% block content %}
+
+<h1>Enrollment</h1>
+<ul>
+{% for enrollee in enrollees %}
+    <li>{{ enrollee.student.first_name }} | {{ enrollee.school_year }}</li>
+{% empty %}
+    <li>No Enrolees yet.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+
