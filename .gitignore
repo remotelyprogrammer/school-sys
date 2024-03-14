@@ -138,3 +138,7 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+smis/__pycache__/settings.cpython-312.pyc
+smis/__pycache__/urls.cpython-312.pyc
+student/__pycache__/forms.cpython-312.pyc
+student/__pycache__/models.cpython-312.pyc
