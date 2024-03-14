@@ -63,6 +63,7 @@ class EnrollmentDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(EnrollmentDetailView, self).get_context_data(**kwargs)
+        
 
         # context['enrollment'] = self.object.enrollment.all() if hasattr(self.object, 'enrollments') else []
         return context
