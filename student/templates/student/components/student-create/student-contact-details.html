@@ -1,0 +1,29 @@
+<div class="card mb-4">
+    <div class="card-header">Contact Details</div>
+        <div class="card-body">
+            <div class="row" >
+
+                    <div class="mb-3 col-4">
+                        <label for="id_full_name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="id_full_name" name="full_name" value="{{ contact_formset.full_name.value|default_if_none:'' }}">
+                        {{ contact_formset.full_name.errors }}
+                    </div>    
+
+                    <div class="mb-3 col-4">
+                        <label for="id_relationship" class="form-label">Relationship</label>
+                        <input type="text" class="form-control" id="id_relationship" name="relationship" value="{{ contact_formset.relatiohship.value|default_if_none:'' }}">
+                        {{ contact_formset.relationship.errors }}
+                    </div> 
+
+                    <div class="mb-3 col-4">
+                        <label for="id_mobile_number" class="form-label">Mobile Number</label>
+                        <input type="text" class="form-control" id="id_mobile_number" name="mobile_number" value="{{ contact_formset.mobile_number.value|default_if_none:'' }}">
+                        {{ contact_formset.mobile_number.errors }}
+                    </div> 
+
+            </div>
+
+        </div>
+
+
+</div>

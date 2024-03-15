@@ -1,0 +1,52 @@
+
+
+
+<div class="card mb-4">
+    <div class="card-header">Address Details</div>
+        <div class="card-body">
+
+            <div class="row" >
+
+                    <div class="mb-3 col-4">
+                        <label for="id_province" class="form-label">Province</label>
+                        <input type="text" class="form-control" id="id_province" name="province" value="{{ address_formset.province.value|default_if_none:'' }}">
+                        {{ address_formset.province.errors }}
+                    </div>    
+
+                    <div class="mb-3 col-4">
+                        <label for="id_city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="id_city" name="city" value="{{ address_formset.city.value|default_if_none:'' }}">
+                        {{ address_formset.city.errors }}
+                    </div>  
+
+                    <div class="mb-3 col-4">
+                        <label for="id_house_number" class="form-label">House Number</label>
+                        <input type="text" class="form-control" id="id_house_number" name="house_number" value="{{ address_formset.house_number.value|default_if_none:'' }}">
+                        {{ address_formset.house_number.errors }}
+                    </div>  
+
+            </div>
+
+
+            <div class="row" >
+
+                    <div class="mb-3 col-4">
+                        <label for="id_barangay" class="form-label">Barangay</label>
+                        <input type="text" class="form-control" id="id_barangay" name="barangay" value="{{ address_formset.barangay.value|default_if_none:'' }}">
+                        {{ address_formset.barangay.errors }}
+                    </div>   
+
+
+                    <div class="mb-3 col-4">
+                        <label for="id_postal_code" class="form-label">Postal Code</label>
+                        <input type="text" class="form-control" id="id_postal_code" name="postal_code" value="{{ address_formset.postal_code.value|default_if_none:'' }}">
+                        {{ address_formset.postal_code.errors }}
+                    </div> 
+
+
+            </div>
+
+        </div>
+
+
+</div>

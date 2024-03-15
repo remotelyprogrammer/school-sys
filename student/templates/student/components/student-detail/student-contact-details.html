@@ -1,0 +1,31 @@
+<div class="card mb-4">
+    <div class="card-header">Contact Details</div>
+        <div class="card-body">
+
+                {% for contact in contacts %}
+                    <div class="row" >
+
+                            <div class="mb-3 col-4">
+                                <label for="id_full_name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="id_full_name" name="full_name" value="{{ contact.full_name|default_if_none:'' }}"disabled>
+                            </div>    
+
+                            <div class="mb-3 col-4">
+                                <label for="id_relationship" class="form-label">Relationship</label>
+                                <input type="text" class="form-control" id="id_relationship" name="relationship" value="{{ contact.relationship|default_if_none:'' }}"disabled>    
+                            </div> 
+
+                            <div class="mb-3 col-4">
+                                <label for="id_mobile_number" class="form-label">Mobile Number</label>
+                                <input type="text" class="form-control" id="id_mobile_number" name="mobile_number" value="{{ contact.mobile_number|default_if_none:'' }}"disabled>
+                            </div> 
+
+                    </div>
+
+                {% endfor %}
+
+
+        </div>
+
+
+</div>

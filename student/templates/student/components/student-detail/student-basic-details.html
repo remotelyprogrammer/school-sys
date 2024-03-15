@@ -1,0 +1,92 @@
+<div class="card mb-4">
+    <div class="card-header">Basic Details</div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="mb-3 col-3">
+                <label for="id_first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ student.first_name|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_middle_name" class="form-label">Middle Name</label>
+                <input type="text" class="form-control" id="id_middle_name" name="middle_name" value="{{ student.middle_name|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ student.last_name|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_suffix" class="form-label">Suffix</label>
+                <input type="text" class="form-control" id="id_suffix" name="suffix" value="{{ student.suffix|default_if_none:'' }}"disabled>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="mb-3 col-3">
+                <label for="id_birth_date" class="form-label">Birth Date</label>
+                <input type="date" class="form-control" id="id_birth_date" name="birth_date" value="{{ student.birth_date|date:'Y-m-d' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_sex" class="form-label">Sex</label>
+                <input class="form-select" id="id_sex" name="sex" value="{{student.sex}}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_civil_status" class="form-label">Civil Status</label>
+                <input class="form-select" id="id_civil_status" name="civil_status" value="{{student.civil_status}}" disabled>
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-3">
+                <label for="id_country_of_birth" class="form-label">Country of Birth</label>
+                <input type="text" class="form-control" id="id_country_of_birth" name="country_of_birth" value="{{ student.country_of_birth|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_birth_place" class="form-label">Birth Place</label>
+                <input type="text" class="form-control" id="id_birth_place" name="birth_place" value="{{ student.birth_place|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_nationality" class="form-label">Nationality</label>
+                <input type="text" class="form-control" id="id_nationality" name="nationality" value="{{ student.nationality|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_religion" class="form-label">Religion</label>
+                <input type="text" class="form-control" id="id_religion" name="religion" value="{{ student.religion|default_if_none:'' }}"disabled>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-3">
+                <label for="id_mobile_number" class="form-label">Mobile Number</label>
+                <input type="text" class="form-control" id="id_mobile_number" name="mobile_number" value="{{ student.mobile_number.value|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_telephone_number" class="form-label">Telephone Number</label>
+                <input type="text" class="form-control" id="id_telephone_number" name="telephone_number" value="{{ student.telephone_number|default_if_none:'' }}"disabled>
+            </div>
+
+            <div class="mb-3 col-3">
+                <label for="id_personal_email" class="form-label">E-Mail</label>
+                <input type="text" class="form-control" id="id_personal_email" name="personal_email" value="{{ student.personal_email|default_if_none:'' }}"disabled>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
