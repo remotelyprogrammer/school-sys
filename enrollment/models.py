@@ -2,6 +2,17 @@ from django.db import models
 from student.models import Student
 from django.utils import timezone
 
+
+class GradeLevel(models.Model):
+    name = models.CharField(max_length=50, unique=True, help_text="The name of the grade level")
+    order = models.PositiveIntegerField(help_text="The order in which the grade level appears")
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.name
+
 class SchoolYear(models.Model):
     start_year = models.PositiveSmallIntegerField(help_text="The start year of the school year, e.g., 2024")
     end_year = models.PositiveSmallIntegerField(help_text="The end year of the school year, e.g., 2025")
@@ -24,7 +35,7 @@ class Enrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='enrollments')
     school_year = models.ForeignKey(SchoolYear, on_delete=models.PROTECT, related_name='enrollments')
     enrollment_number = models.AutoField(primary_key=True)
-    grade_level = models.CharField(max_length=50, blank=True, null=True)
+    grade_level = models.ForeignKey(GradeLevel, on_delete=models.SET_NULL, null=True, blank=True, related_name='enrollments')
     enrollment_date = models.DateField(default=timezone.now)
 
     class Meta:

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
-from .models import Enrollment
+from .models import Enrollment, SchoolYear
 from .forms import EnrollmentForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -12,9 +12,6 @@ from django.views.generic.list import ListView
 
 class EnrollmentHomeView(TemplateView):
 	template_name = 'enrollment/enrollment-home.html'
-
-
-
 
 
 from dal import autocomplete
@@ -73,3 +70,23 @@ class EnrollmentListView(ListView):
     model = Enrollment
     template_name = 'enrollment/enrollment-list.html'
     context_object_name = 'enrollees'
+
+
+class CreateSchoolYearView(CreateView):
+    model = SchoolYear
+    template_name = 'enrollment/create-school-year.html'
+    success_url = reverse_lazy('enrollment:enrollment-home')
+    fields = ['start_year', 'end_year', 'is_current']
+
+
+class SchoolYearDetailView(DetailView):
+    model = SchoolYear
+    template_name = 'enrollment/school-year-details.html'
+    context_object_name = 'school_year'
+
+
+class SchoolYearListView(ListView):
+    model = SchoolYear
+    template_name = 'enrollment/school-year-list.html'
+    context_object_name = 'school_years'
+

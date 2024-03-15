@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Enrollment, SchoolYear
+from .models import Enrollment, SchoolYear, GradeLevel
 
 admin.site.register(Enrollment)
+admin.site.register(GradeLevel)
 
 @admin.register(SchoolYear)
 class SchoolYearAdmin(admin.ModelAdmin):

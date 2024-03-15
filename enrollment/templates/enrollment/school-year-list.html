@@ -1,0 +1,18 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+
+<h1> School Year List </h1>
+
+<ul>
+
+{% for school_year in school_years %}
+
+	<li>{{ school_year }}</li>
+
+    <a href="{% url 'enrollment:school-year-detail' school_year.pk %}">View</a>
+
+{% endfor %}
+</ul>	
+
+{% endblock %}
