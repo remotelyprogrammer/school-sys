@@ -2,43 +2,12 @@
 
 {% block content %}
 <div class="container mt-3">
-    <h2>Student Details: {{ student.first_name }} {{ student.last_name }}</h2>
-    
-    <div class="card mb-3">
-        <div class="card-header">Personal Information</div>
-        <div class="card-body">
-            <p>Student School ID: {{ student.std_sch_id }}</p>
-            <p>Birth Date: {{ student.birth_date }}</p>
-            <!-- Add more fields as necessary -->
-        </div>
-    </div>
 
-    <div class="card mb-3">
-        <div class="card-header">Address</div>
-        <div class="card-body">
-            {% if address %}
-                <p>{{ address.house_number }} {{ address.barangay }}</p>
-                <p>{{ address.city }}, {{ address.province }}</p>
-                <p>Postal Code: {{ address.postal_code }}</p>
-            {% else %}
-                <p>No address provided.</p>
-            {% endif %}
-        </div>
-    </div>
+{% include "student/components/student-detail/student-basic-details.html" %}
 
-    <div class="card mb-3">
-        <div class="card-header">Contacts</div>
-        <div class="card-body">
-            {% if contacts %}
-                <ul>
-                    {% for contact in contacts %}
-                        <li>{{ contact.full_name }} - {{ contact.relationship }} - {{ contact.mobile_number }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No contacts provided.</p>
-            {% endif %}
-        </div>
-    </div>
+{% include "student/components/student-detail/student-address-details.html" %}
+
+{% include "student/components/student-detail/student-contact-details.html" %}
+
 </div>
 {% endblock %}
