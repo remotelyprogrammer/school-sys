@@ -41,11 +41,14 @@ class Enrollment(models.Model):
     class Meta:
         unique_together = (('school_year', 'enrollment_number'),)
 
-    def __str__(self):
-        year_prefix = f"{self.school_year.start_year}{self.school_year.end_year}"[:4]  # Example format: 2425
-        return f"{year_prefix}-{self.enrollment_number:07d}"
-
     @property
     def school_year_id(self):
-        year_prefix = f"{self.school_year.start_year}{self.school_year.end_year}"[:4]  # Example format: 2425
+        # Extract the last two digits of the start and end years
+        year_prefix = f"{str(self.school_year.start_year)[-2:]}{str(self.school_year.end_year)[-2:]}"
         return f"{year_prefix}-{self.enrollment_number:07d}"
+
+    def __str__(self):
+        # Same logic in the __str__ method
+        year_prefix = f"{str(self.school_year.start_year)[-2:]}{str(self.school_year.end_year)[-2:]}"
+        return f"{year_prefix}-{self.enrollment_number:07d}"
+
