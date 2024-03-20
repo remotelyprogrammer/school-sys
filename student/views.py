@@ -43,65 +43,6 @@ class StudentDetailView(DetailView):
         context['contacts'] = self.object.contacts.all() if hasattr(self.object, 'contacts') else []
         return context
 
-# class CreateStudentView(CreateView):
-#     model = Student
-#     form_class = StudentForm
-#     template_name = 'student/create-student.html'
-#     success_url = reverse_lazy('student:student-home')
-
-#     def get_context_data(self, **kwargs):
-#         context = super(CreateStudentView, self).get_context_data(**kwargs)
-#         if self.request.POST:
-#             context['contact_formset'] = ContactFormSet(self.request.POST)
-#             context['address_formset'] = AddressFormSet(self.request.POST)
-#         else:
-#             context['contact_formset'] = ContactFormSet()
-#             context['address_formset'] = AddressFormSet()
-#         return context
-
-#     def form_valid(self, form):
-#         context = self.get_context_data()
-#         address_formset = context['address_formset']
-#         contact_formset = context['contact_formset']
-#         if form.is_valid() and address_formset.is_valid() and contact_formset.is_valid():
-#             self.object = form.save()
-#             address_formset.instance = self.object
-#             address_formset.save()
-#             contact_formset.instance = self.object
-#             contact_formset.save()
-#             return super().form_valid(form)
-#         else:
-#             print("Form errors:", form.errors)
-#             print("Address formset errors:", address_formset.errors)
-#             print("Contact formset errors:", contact_formset.errors)
-#             return self.render_to_response(self.get_context_data(form=form))
-
-
-# class CreateStudentView(CreateView):
-#     model = Student
-#     form_class = StudentForm
-#     template_name = 'student/create-student.html'
-#     success_url = reverse_lazy('student:student-home')
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(CreateStudentView, self).get_context_data(**kwargs)
-    #     if self.request.POST:
-    #         context['contact_formset'] = ContactFormSet(self.request.POST)
-    #     else:
-    #         context['contact_formset'] = ContactFormSet()
-
-    #     return context
-
-    # def form_valid(self, form):
-    #     context = self.get_context_data()
-    #     contact_formset = context['contact_formset']
-    #     if form.is_valid() and contact_formset.is_valid():
-    #         self.object = form.save()
-    #         contact_formset.instance = self.object
-    #         contact_formset.save()
-    #         return super().form_valid(form)
-    #     else:
-    #         return self.render_to_response(self.get_context_data(form=form))
 
 class CreateStudentView(View):
     template_name = 'student/create-student.html'
