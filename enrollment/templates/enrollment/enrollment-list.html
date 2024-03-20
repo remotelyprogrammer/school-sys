@@ -6,7 +6,7 @@
 <h1>Enrollment</h1>
 <ul>
 {% for enrollee in enrollees %}
-    <li>{{ enrollee.student.first_name }} | {{ enrollee.school_year }} | {{ enrollee.school_year_sc}} </li>
+    <li>{{ enrollee.student.first_name }} | {{ enrollee.school_year }} | {{ enrollee.school_year_reg}} </li>
 {% empty %}
     <li>No Enrolees yet.</li>
 {% endfor %}

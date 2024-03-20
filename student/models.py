@@ -4,7 +4,6 @@ from django.db.models import Max, Q
 
 
 class Student(models.Model):
-    std_sch_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)

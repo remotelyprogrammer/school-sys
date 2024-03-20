@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contact, Student, Address
 from django.views.generic.edit import CreateView, DeleteView
-from .forms import StudentForm, ContactFormSet, AddressForm, AddressFormSet
+from .forms import StudentForm, ContactFormSet, AddressForm, AddressFormSet, ContactForm, AddressForm
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views import View
 
 
 class StudentDeleteView(DeleteView):
@@ -30,12 +31,6 @@ class StudentDetailView(DetailView):
     template_name = 'student/student-detail.html'
     context_object_name = 'student'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # Add the student's contacts and address to the context
-    #     context['contacts'] = self.object.contacts.all()
-    #     context['address'] = self.object.address
-    #     return context
     def get_context_data(self, **kwargs):
         context = super(StudentDetailView, self).get_context_data(**kwargs)
         # Safely get the student's address if it exists, otherwise set it to None
@@ -48,35 +43,100 @@ class StudentDetailView(DetailView):
         context['contacts'] = self.object.contacts.all() if hasattr(self.object, 'contacts') else []
         return context
 
-class CreateStudentView(CreateView):
-    model = Student
-    form_class = StudentForm
+# class CreateStudentView(CreateView):
+#     model = Student
+#     form_class = StudentForm
+#     template_name = 'student/create-student.html'
+#     success_url = reverse_lazy('student:student-home')
+
+#     def get_context_data(self, **kwargs):
+#         context = super(CreateStudentView, self).get_context_data(**kwargs)
+#         if self.request.POST:
+#             context['contact_formset'] = ContactFormSet(self.request.POST)
+#             context['address_formset'] = AddressFormSet(self.request.POST)
+#         else:
+#             context['contact_formset'] = ContactFormSet()
+#             context['address_formset'] = AddressFormSet()
+#         return context
+
+#     def form_valid(self, form):
+#         context = self.get_context_data()
+#         address_formset = context['address_formset']
+#         contact_formset = context['contact_formset']
+#         if form.is_valid() and address_formset.is_valid() and contact_formset.is_valid():
+#             self.object = form.save()
+#             address_formset.instance = self.object
+#             address_formset.save()
+#             contact_formset.instance = self.object
+#             contact_formset.save()
+#             return super().form_valid(form)
+#         else:
+#             print("Form errors:", form.errors)
+#             print("Address formset errors:", address_formset.errors)
+#             print("Contact formset errors:", contact_formset.errors)
+#             return self.render_to_response(self.get_context_data(form=form))
+
+
+# class CreateStudentView(CreateView):
+#     model = Student
+#     form_class = StudentForm
+#     template_name = 'student/create-student.html'
+#     success_url = reverse_lazy('student:student-home')
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(CreateStudentView, self).get_context_data(**kwargs)
+    #     if self.request.POST:
+    #         context['contact_formset'] = ContactFormSet(self.request.POST)
+    #     else:
+    #         context['contact_formset'] = ContactFormSet()
+
+    #     return context
+
+    # def form_valid(self, form):
+    #     context = self.get_context_data()
+    #     contact_formset = context['contact_formset']
+    #     if form.is_valid() and contact_formset.is_valid():
+    #         self.object = form.save()
+    #         contact_formset.instance = self.object
+    #         contact_formset.save()
+    #         return super().form_valid(form)
+    #     else:
+    #         return self.render_to_response(self.get_context_data(form=form))
+
+class CreateStudentView(View):
     template_name = 'student/create-student.html'
-    success_url = reverse_lazy('student:student-home')
 
-    def get_context_data(self, **kwargs):
-        context = super(CreateStudentView, self).get_context_data(**kwargs)
-        if self.request.POST:
-            context['contact_formset'] = ContactFormSet(self.request.POST)
-            context['address_formset'] = AddressFormSet(self.request.POST)
-        else:
-            context['contact_formset'] = ContactFormSet()
-            context['address_formset'] = AddressFormSet()
-        return context
+    def get(self, request, *args, **kwargs):
+        form = StudentForm()
+        address_form = AddressForm()
+        contact_form = ContactForm()
+        return render(request, self.template_name, {
+            'form': form,
+            'address_form': address_form,
+            'contact_form': contact_form,
+        })
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        address_formset = context['address_formset']
-        contact_formset = context['contact_formset']
-        if form.is_valid() and address_formset.is_valid() and contact_formset.is_valid():
-            self.object = form.save()
-            address_formset.instance = self.object
-            address_formset.save()
-            contact_formset.instance = self.object
-            contact_formset.save()
-            return super().form_valid(form)
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+    def post(self, request, *args, **kwargs):
+        form = StudentForm(request.POST)
+        address_form = AddressForm(request.POST)
+        contact_form = ContactForm(request.POST)
+
+        if form.is_valid() and address_form.is_valid() and contact_form.is_valid():
+            student = form.save()
+            address = address_form.save(commit=False)
+            address.student = student
+            address.save()
+            contact = contact_form.save(commit=False)
+            contact.student = student
+            contact.save()
+
+            return redirect('student:student-list')  # Adjust the redirect to where you need.
+        
+        return render(request, self.template_name, {
+            'form': form,
+            'address_formset': address_form,
+            'contact_formset': contact_form,
+        })
         
 def home(request):
     return render(request, 'student/base.html')
