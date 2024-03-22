@@ -32,6 +32,16 @@ class SchoolYear(models.Model):
             SchoolYear.objects.filter(is_current=True).update(is_current=False)
         super(SchoolYear, self).save(*args, **kwargs)
 
+
+class Subject(models.Model):
+    code = models.CharField(max_length=10, unique=True, help_text="Unique code for the subject, e.g., MATH101")
+    name = models.CharField(max_length=100, help_text="Name of the subject, e.g., Mathematics")
+    description = models.TextField(blank=True, help_text="A brief description of the subject")
+
+    def __str__(self):
+        return f"{self.code} - {self.name}"
+
+
 class Enrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='enrollments')
     school_year = models.ForeignKey(SchoolYear, on_delete=models.PROTECT, related_name='enrollments')
