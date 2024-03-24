@@ -1,0 +1,15 @@
+<!-- Template for the form to create a new subject -->
+{% extends 'student/base.html' %}
+
+{% block content %}
+
+
+<h2>Add New Subject</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+
+
+{% endblock %}

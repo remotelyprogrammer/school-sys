@@ -4,16 +4,6 @@ from django.utils import timezone
 from django.db.models import Max
 
 
-class GradeLevel(models.Model):
-    name = models.CharField(max_length=50, unique=True, help_text="The name of the grade level")
-    order = models.PositiveIntegerField(help_text="The order in which the grade level appears")
-
-    class Meta:
-        ordering = ['order']
-
-    def __str__(self):
-        return self.name
-
 class SchoolYear(models.Model):
     start_year = models.PositiveSmallIntegerField(help_text="The start year of the school year, e.g., 2024")
     end_year = models.PositiveSmallIntegerField(help_text="The end year of the school year, e.g., 2025")
@@ -33,13 +23,32 @@ class SchoolYear(models.Model):
         super(SchoolYear, self).save(*args, **kwargs)
 
 
+class Curriculum(models.Model):
+    curriculum_name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return f"{self.curriculum_name}"
+
+
 class Subject(models.Model):
     code = models.CharField(max_length=10, unique=True, help_text="Unique code for the subject, e.g., MATH101")
+    curriculum = models.ForeignKey(Curriculum, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100, help_text="Name of the subject, e.g., Mathematics")
     description = models.TextField(blank=True, help_text="A brief description of the subject")
 
     def __str__(self):
         return f"{self.code} - {self.name}"
+
+
+class GradeLevel(models.Model):
+    name = models.CharField(max_length=50, unique=True, help_text="The name of the grade level, e.g., Grade 1")
+    order = models.PositiveIntegerField(help_text="The order in which the grade level appears")
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.name
 
 
 class Enrollment(models.Model):

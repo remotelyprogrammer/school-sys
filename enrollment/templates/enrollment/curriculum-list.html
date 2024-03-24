@@ -1,0 +1,18 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+
+<h2>Curricula</h2>
+<ul>
+  {% for curriculum in curricula %}
+    <li>{{ curriculum.curriculum_name }} - {{ curriculum.subject.name }}</li>
+  {% empty %}
+    <li>No curricula available.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'enrollment:curriculum-create' %}">Add New Curriculum</a>
+
+
+
+
+{% endblock %}

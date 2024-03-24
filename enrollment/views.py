@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView
-from .models import Enrollment, SchoolYear
-from .forms import EnrollmentForm
+from django.views.generic.edit import CreateView, UpdateView
+from .models import Enrollment, SchoolYear, Subject, Curriculum
+from .forms import EnrollmentForm, SubjectForm, CurriculumForm, SubjectInlineFormSet
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -90,3 +90,41 @@ class SchoolYearListView(ListView):
     template_name = 'enrollment/school-year-list.html'
     context_object_name = 'school_years'
 
+
+class SubjectListView(ListView):
+    model = Subject
+    template_name = 'enrollment/subject-list.html'
+    context_object_name = 'subjects'
+
+class SubjectCreateView(CreateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = 'enrollment/subject-create.html'
+    success_url = reverse_lazy('enrollment:subject-list')
+
+
+class CurriculumListView(ListView):
+    model = Curriculum
+    template_name = 'enrollment/curriculum-list.html'
+    context_object_name = 'curricula'
+
+def curriculum_create_or_update(request, curriculum_id=None):
+    if curriculum_id:
+        curriculum = Curriculum.objects.get(pk=curriculum_id)
+    else:
+        curriculum = Curriculum()
+
+    if request.method == 'POST':
+        form = CurriculumForm(request.POST, instance=curriculum)
+        formset = SubjectInlineFormSet(request.POST, instance=curriculum)
+        
+        if form.is_valid() and formset.is_valid():
+            created_curriculum = form.save()
+            formset.instance = created_curriculum
+            formset.save()
+            return redirect('enrollment:curriculum-list')
+    else:
+        form = CurriculumForm(instance=curriculum)
+        formset = SubjectInlineFormSet(instance=curriculum)
+    
+    return render(request, 'enrollment/curriculum-create.html', {'form': form, 'formset': formset})

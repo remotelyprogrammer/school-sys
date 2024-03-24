@@ -15,5 +15,16 @@ urlpatterns = [
     path('school-year/<int:pk>/', views.SchoolYearDetailView.as_view(), name='school-year-detail'),
     path("school-year-list/", views.SchoolYearListView.as_view(), name="school-year-list"),
 
+    path('subjects/', views.SubjectListView.as_view(), name='subject-list'),
+    path('subjects/add/', views.SubjectCreateView.as_view(), name='subject-create'),
+
+
+    path('curriculum/', views.CurriculumListView.as_view(), name='curriculum-list'),
+    path('curriculum/new/', views.curriculum_create_or_update, name='curriculum-create'),
+    path('curriculum/<int:curriculum_id>/edit/', views.curriculum_create_or_update, name='curriculum_edit'),
 
 ]
+
+
+
+    
