@@ -31,6 +31,6 @@ SubjectInlineFormSet = inlineformset_factory(
     Curriculum,  # The parent model
     Subject,  # The child model
     form=SubjectForm,
-    extra=2,  # How many blank forms you want to display
+    extra=1,  # How many blank forms you want to display
     can_delete=True  # Allows deletion of subjects
 )
