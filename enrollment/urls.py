@@ -20,8 +20,13 @@ urlpatterns = [
 
 
     path('curriculum/', views.CurriculumListView.as_view(), name='curriculum-list'),
-    path('curriculum/new/', views.curriculum_create_or_update, name='curriculum-create'),
-    path('curriculum/<int:curriculum_id>/edit/', views.curriculum_create_or_update, name='curriculum_edit'),
+    path('curriculum/create', views.CurriculumCreateView.as_view(), name='curriculum-create'),
+
+    path('curriculumset/new/', views.curriculumset_create_or_update, name='curriculumset-create'),
+    path('curriculumset/<int:curriculum_id>/edit/', views.curriculumset_create_or_update, name='curriculumset_edit'),
+
+    path('grade-level/create/', views.GradeLevelCreateView.as_view(), name='grade-level-create'),
+    path('grade-level/list/', views.GradeLevelListView.as_view(), name='grade-level-list'),
 
 ]
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
-from .models import Enrollment, SchoolYear, Subject, Curriculum
+from .models import Enrollment, SchoolYear, Subject, Curriculum, GradeLevel
 from .forms import EnrollmentForm, SubjectForm, CurriculumForm, SubjectInlineFormSet
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -103,12 +103,18 @@ class SubjectCreateView(CreateView):
     success_url = reverse_lazy('enrollment:subject-list')
 
 
+class CurriculumCreateView(CreateView):
+    model = Curriculum
+    template_name = 'enrollment/curriculum-create.html'
+    success_url = reverse_lazy('enrollment:subject-list')
+    fields = '__all__'
+
 class CurriculumListView(ListView):
     model = Curriculum
     template_name = 'enrollment/curriculum-list.html'
     context_object_name = 'curricula'
 
-def curriculum_create_or_update(request, curriculum_id=None):
+def curriculumset_create_or_update(request, curriculum_id=None):
     if curriculum_id:
         curriculum = Curriculum.objects.get(pk=curriculum_id)
     else:
@@ -122,9 +128,22 @@ def curriculum_create_or_update(request, curriculum_id=None):
             created_curriculum = form.save()
             formset.instance = created_curriculum
             formset.save()
-            return redirect('enrollment:curriculum-list')
+            return redirect('enrollment:curriculumset-list')
     else:
         form = CurriculumForm(instance=curriculum)
         formset = SubjectInlineFormSet(instance=curriculum)
     
-    return render(request, 'enrollment/curriculum-create.html', {'form': form, 'formset': formset})
+    return render(request, 'enrollment/curriculumset-create.html', {'form': form, 'formset': formset})
+
+
+class GradeLevelCreateView(CreateView):
+    model = GradeLevel
+    template_name = 'enrollment/create-grade-level.html'
+    success_url = reverse_lazy('enrollment:subject-list')
+    fields = ['name', 'order']
+
+
+class GradeLevelListView(ListView):
+    model = GradeLevel
+    template_name = 'enrollment/grade-level-list.html'
+    context_object_name = 'grade_levels'

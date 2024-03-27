@@ -1,0 +1,18 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+
+<h2>Grade Levels</h2>
+<ul>
+  {% for grade_level in grade_levels %}
+    <li>{{ grade_level.name }} - {{ grade_level.order }}</li>
+  {% empty %}
+    <li>No Grade Level available.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'enrollment:grade-level-create' %}">Add New Grade Level</a>
+
+
+
+
+{% endblock %}
